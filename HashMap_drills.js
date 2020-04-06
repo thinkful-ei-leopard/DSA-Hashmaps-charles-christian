@@ -81,3 +81,120 @@ function RemoveDuplicates(str){
     return nonDupe;
 }
 console.log(RemoveDuplicates('google all that you think can think of'))
+
+//5 
+function checkPalindrome(str) {
+    let map = new Map(); 
+    let unmatched = false;
+    for (let i=0; i<str.length; i++) {
+        let char = str[i];
+        if (map.has(char)) {
+            let value = map.get(char);
+            map.set(char, value + 1);
+        } 
+        else {
+            map.set(char, 1);
+        }
+    }
+    for (let value of map.values()) {
+        if (value % 2 === 1) {
+            if (unmatched) {
+                return false;
+            }
+            else {
+                unmatched = true;
+            }
+        }
+    }
+    return true;
+}
+
+console.log(checkPalindrome('dad'));
+
+//6
+//  function anagram(words){
+//     let anagrams = new HashMap(), ret = [];
+//     for (let word of words) {
+//         let key = test(word); //east 
+//         if (anagrams.has(key)){
+//             anagrams.get(key).push(word);
+//         } 
+//         else {
+//           ret.push(anagrams.set(key, [word]));
+//         }
+//     }
+//     return ret;
+//  }
+// let arr = ['east', 'cars', 'acre', 'arcs', 'teas', 'eats', 'race'] 
+
+// function test(sort){
+//  return sort
+//     .split('')
+//     .sort()
+//     .join('')
+// }
+
+// console.log(test(arr));
+//anagram();
+function _sortword(word) {
+	//Helper function: sort a word into some form of canonical order.
+	//The exact order is insignificant and need not be lexicographical,
+	//as long as it is utterly consistent: any two anagrams of the same
+	//letter sequence must return the same string.
+	return word.split('').sort().join('')
+}
+function group_into_anagrams(words) {
+    let anagrams = new Map(), ret = [];
+    for (let word of words) {
+        let key = _sortword(word); //east 
+        if (anagrams.has(key)){
+            anagrams.get(key).push(word);
+        } 
+        else {
+          ret.push(anagrams.set(key, [word]));
+        }
+    }
+    return ret;
+}
+console.log(group_into_anagrams(['east', 'cars', 'acre', 'arcs', 'teas', 'eats', 'race']))
+
+//7
+class Node {
+    constructor(data) {
+        this.data = data
+        this.ext = null
+    }
+}
+
+class HashMap {
+    constructor(initialCapacity=8) {
+        this.length = 0;
+        this._hashTable = [];
+        this._capacity = initialCapacity;
+        this._deleted = 0;
+}
+
+get(key) {
+    let hash = this._hashString(key)
+    if(!this._hashTable[hash])
+    let (chain.hasOwnProperty(key)) {
+        return chain[key]
+    }
+    return null
+}
+
+static _hashString(string) {
+    let hash = 5381;
+    for (let i = 0; i < string.length; i++) {
+        //Bitwise left shift with 5 0s - this would be similar to
+        //hash*31, 31 being the decent prime number
+        //but bit shifting is a faster way to do this
+        //tradeoff is understandability
+        hash = (hash << 5) + hash + string.charCodeAt(i);
+        //converting hash to a 32 bit integer
+        hash = hash & hash;
+    }
+    //making sure hash is unsigned - meaning non-negtive number. 
+    return hash >>> 0;
+}
+}
